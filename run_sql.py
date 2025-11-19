@@ -82,8 +82,9 @@ try:
     conn = pymysql.connect(host=host, port=port, user=user, password=password, db=db, autocommit=False)
     try:
         with conn.cursor() as cursor:
-            for sql_file in sql_files:
-                print(f"執行 SQL 檔案: {sql_file}")
+            for idx, sql_file in enumerate(sql_files, start=1):
+                # include current file index / total count in logs
+                print(f"執行 SQL 檔案 ({idx}/{len(sql_files)}): {sql_file}")
                 with open(sql_file, "r", encoding="utf-8") as f:
                     raw_sql = f.read()
 
@@ -101,10 +102,10 @@ try:
                             continue
                         cursor.execute(stmt)
                     except pymysql.MySQLError as e:
-                        print(f"    在檔案 {sql_file} 的 statement #{i} 發生錯誤: {e}")
+                        print(f"    在檔案 ({idx}/{len(sql_files)}) {sql_file} 的 statement #{i} 發生錯誤: {e}")
                         raise
                 conn.commit()
-                print(f"  已成功執行並 commit 檔案: {sql_file}")
+                print(f"  已成功執行並 commit 檔案 ({idx}/{len(sql_files)}): {sql_file}")
     finally:
         conn.close()
 except pymysql.MySQLError as e:

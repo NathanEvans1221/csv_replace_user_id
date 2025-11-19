@@ -1,11 +1,10 @@
 INSERT
-    IGNORE INTO activity_day_online (
+    IGNORE INTO activity_week_online (
         user_id,
         week_num,
-        day_num,
         start_time,
         end_time,
-        type,
+        `type`,
         total_activities,
         total_second,
         total_distance_meters,
@@ -84,7 +83,6 @@ INSERT
 SELECT
     OLD.user_id,
     OLD.week_num,
-    OLD.day_num,
     OLD.start_time,
     OLD.end_time,
     CASE
@@ -169,207 +167,207 @@ SELECT
     OLD.personalized_activity_intelligence,
     OLD.total_activity_second,
     OLD.total_feedback_energy,
-    PROFILE.header_region_code,
-    PROFILE.gender,
-    STR_TO_DATE(PROFILE.birthday, '%Y%m%d')
+    p.header_region_code,
+    p.gender,
+    STR_TO_DATE(p.birthday, '%Y%m%d')
 FROM
-    activity_day AS OLD
-    LEFT JOIN user_profile AS PROFILE ON OLD.user_id = PROFILE.user_id
+    activity_week AS OLD
+    LEFT JOIN user_profile p ON OLD.user_id = p.user_id
 WHERE
     OLD.user_id IN (
         ##USER_ID##)
         AND OLD.year_num >= 2024 ON DUPLICATE KEY
         UPDATE
-            total_activities = IFNULL(activity_day_online.total_activities, 0) +
+            total_activities = IFNULL(activity_week_online.total_activities, 0) +
         VALUES
             (total_activities),
-            total_second = IFNULL(activity_day_online.total_second, 0) +
+            total_second = IFNULL(activity_week_online.total_second, 0) +
         VALUES
             (total_second),
-            total_distance_meters = IFNULL(activity_day_online.total_distance_meters, 0) +
+            total_distance_meters = IFNULL(activity_week_online.total_distance_meters, 0) +
         VALUES
             (total_distance_meters),
-            elev_gain = IFNULL(activity_day_online.elev_gain, 0) +
+            elev_gain = IFNULL(activity_week_online.elev_gain, 0) +
         VALUES
             (elev_gain),
-            elev_loss = IFNULL(activity_day_online.elev_loss, 0) +
+            elev_loss = IFNULL(activity_week_online.elev_loss, 0) +
         VALUES
             (elev_loss),
-            calories = IFNULL(activity_day_online.calories, 0) +
+            calories = IFNULL(activity_week_online.calories, 0) +
         VALUES
             (calories),
-            total_hr_zone0_second = IFNULL(activity_day_online.total_hr_zone0_second, 0) +
+            total_hr_zone0_second = IFNULL(activity_week_online.total_hr_zone0_second, 0) +
         VALUES
             (total_hr_zone0_second),
-            total_hr_zone1_second = IFNULL(activity_day_online.total_hr_zone1_second, 0) +
+            total_hr_zone1_second = IFNULL(activity_week_online.total_hr_zone1_second, 0) +
         VALUES
             (total_hr_zone1_second),
-            total_hr_zone2_second = IFNULL(activity_day_online.total_hr_zone2_second, 0) +
+            total_hr_zone2_second = IFNULL(activity_week_online.total_hr_zone2_second, 0) +
         VALUES
             (total_hr_zone2_second),
-            total_hr_zone3_second = IFNULL(activity_day_online.total_hr_zone3_second, 0) +
+            total_hr_zone3_second = IFNULL(activity_week_online.total_hr_zone3_second, 0) +
         VALUES
             (total_hr_zone3_second),
-            total_hr_zone4_second = IFNULL(activity_day_online.total_hr_zone4_second, 0) +
+            total_hr_zone4_second = IFNULL(activity_week_online.total_hr_zone4_second, 0) +
         VALUES
             (total_hr_zone4_second),
-            total_hr_zone5_second = IFNULL(activity_day_online.total_hr_zone5_second, 0) +
+            total_hr_zone5_second = IFNULL(activity_week_online.total_hr_zone5_second, 0) +
         VALUES
             (total_hr_zone5_second),
-            total_elev_gain_second = IFNULL(activity_day_online.total_elev_gain_second, 0) +
+            total_elev_gain_second = IFNULL(activity_week_online.total_elev_gain_second, 0) +
         VALUES
             (total_elev_gain_second),
-            total_elev_loss_second = IFNULL(activity_day_online.total_elev_loss_second, 0) +
+            total_elev_loss_second = IFNULL(activity_week_online.total_elev_loss_second, 0) +
         VALUES
             (total_elev_loss_second),
-            total_ftp_zone0_second = IFNULL(activity_day_online.total_ftp_zone0_second, 0) +
+            total_ftp_zone0_second = IFNULL(activity_week_online.total_ftp_zone0_second, 0) +
         VALUES
             (total_ftp_zone0_second),
-            total_ftp_zone1_second = IFNULL(activity_day_online.total_ftp_zone1_second, 0) +
+            total_ftp_zone1_second = IFNULL(activity_week_online.total_ftp_zone1_second, 0) +
         VALUES
             (total_ftp_zone1_second),
-            total_ftp_zone2_second = IFNULL(activity_day_online.total_ftp_zone2_second, 0) +
+            total_ftp_zone2_second = IFNULL(activity_week_online.total_ftp_zone2_second, 0) +
         VALUES
             (total_ftp_zone2_second),
-            total_ftp_zone3_second = IFNULL(activity_day_online.total_ftp_zone3_second, 0) +
+            total_ftp_zone3_second = IFNULL(activity_week_online.total_ftp_zone3_second, 0) +
         VALUES
             (total_ftp_zone3_second),
-            total_ftp_zone4_second = IFNULL(activity_day_online.total_ftp_zone4_second, 0) +
+            total_ftp_zone4_second = IFNULL(activity_week_online.total_ftp_zone4_second, 0) +
         VALUES
             (total_ftp_zone4_second),
-            total_ftp_zone5_second = IFNULL(activity_day_online.total_ftp_zone5_second, 0) +
+            total_ftp_zone5_second = IFNULL(activity_week_online.total_ftp_zone5_second, 0) +
         VALUES
             (total_ftp_zone5_second),
-            total_ftp_zone6_second = IFNULL(activity_day_online.total_ftp_zone6_second, 0) +
+            total_ftp_zone6_second = IFNULL(activity_week_online.total_ftp_zone6_second, 0) +
         VALUES
             (total_ftp_zone6_second),
-            total_weight_kg = IFNULL(activity_day_online.total_weight_kg, 0) +
+            total_weight_kg = IFNULL(activity_week_online.total_weight_kg, 0) +
         VALUES
             (total_weight_kg),
-            total_reps = IFNULL(activity_day_online.total_reps, 0) +
+            total_reps = IFNULL(activity_week_online.total_reps, 0) +
         VALUES
             (total_reps),
-            total_swing_count = IFNULL(activity_day_online.total_swing_count, 0) +
+            total_swing_count = IFNULL(activity_week_online.total_swing_count, 0) +
         VALUES
             (total_swing_count),
             total_forehand_swing_count = IFNULL(
-                activity_day_online.total_forehand_swing_count,
+                activity_week_online.total_forehand_swing_count,
                 0
             ) +
         VALUES
             (total_forehand_swing_count),
             total_backhand_swing_count = IFNULL(
-                activity_day_online.total_backhand_swing_count,
+                activity_week_online.total_backhand_swing_count,
                 0
             ) +
         VALUES
             (total_backhand_swing_count),
-            total_activity_second = IFNULL(activity_day_online.total_activity_second, 0) +
+            total_activity_second = IFNULL(activity_week_online.total_activity_second, 0) +
         VALUES
             (total_activity_second),
-            total_feedback_energy = IFNULL(activity_day_online.total_feedback_energy, 0) +
+            total_feedback_energy = IFNULL(activity_week_online.total_feedback_energy, 0) +
         VALUES
             (total_feedback_energy),
-            total_plus_g_force_x = IFNULL(activity_day_online.total_plus_g_force_x, 0) +
+            total_plus_g_force_x = IFNULL(activity_week_online.total_plus_g_force_x, 0) +
         VALUES
             (total_plus_g_force_x),
-            total_plus_g_force_y = IFNULL(activity_day_online.total_plus_g_force_y, 0) +
+            total_plus_g_force_y = IFNULL(activity_week_online.total_plus_g_force_y, 0) +
         VALUES
             (total_plus_g_force_y),
-            total_plus_g_force_z = IFNULL(activity_day_online.total_plus_g_force_z, 0) +
+            total_plus_g_force_z = IFNULL(activity_week_online.total_plus_g_force_z, 0) +
         VALUES
             (total_plus_g_force_z),
-            total_minus_g_force_x = IFNULL(activity_day_online.total_minus_g_force_x, 0) +
+            total_minus_g_force_x = IFNULL(activity_week_online.total_minus_g_force_x, 0) +
         VALUES
             (total_minus_g_force_x),
-            total_minus_g_force_y = IFNULL(activity_day_online.total_minus_g_force_y, 0) +
+            total_minus_g_force_y = IFNULL(activity_week_online.total_minus_g_force_y, 0) +
         VALUES
             (total_minus_g_force_y),
-            total_minus_g_force_z = IFNULL(activity_day_online.total_minus_g_force_z, 0) +
+            total_minus_g_force_z = IFNULL(activity_week_online.total_minus_g_force_z, 0) +
         VALUES
             (total_minus_g_force_z),
             avg_heart_rate_bpm = (
-                IFNULL(activity_day_online.avg_heart_rate_bpm, 0) * IFNULL(activity_day_online.total_activities, 0) +
+                IFNULL(activity_week_online.avg_heart_rate_bpm, 0) * IFNULL(activity_week_online.total_activities, 0) +
                 VALUES
                     (avg_heart_rate_bpm)
             ) / (
-                IFNULL(activity_day_online.total_activities, 0) + 1
+                IFNULL(activity_week_online.total_activities, 0) + 1
             ),
             avg_max_heart_rate_bpm = GREATEST(
-                IFNULL(activity_day_online.avg_max_heart_rate_bpm, 0),
+                IFNULL(activity_week_online.avg_max_heart_rate_bpm, 0),
                 VALUES
                     (avg_max_heart_rate_bpm)
             ),
             avg_speed = (
-                IFNULL(activity_day_online.avg_speed, 0) * IFNULL(activity_day_online.total_activities, 0) +
+                IFNULL(activity_week_online.avg_speed, 0) * IFNULL(activity_week_online.total_activities, 0) +
                 VALUES
                     (avg_speed)
             ) / (
-                IFNULL(activity_day_online.total_activities, 0) + 1
+                IFNULL(activity_week_online.total_activities, 0) + 1
             ),
             avg_max_speed = GREATEST(
-                IFNULL(activity_day_online.avg_max_speed, 0),
+                IFNULL(activity_week_online.avg_max_speed, 0),
                 VALUES
                     (avg_max_speed)
             ),
             avg_cadence = (
-                IFNULL(activity_day_online.avg_cadence, 0) * IFNULL(activity_day_online.total_activities, 0) +
+                IFNULL(activity_week_online.avg_cadence, 0) * IFNULL(activity_week_online.total_activities, 0) +
                 VALUES
                     (avg_cadence)
             ) / (
-                IFNULL(activity_day_online.total_activities, 0) + 1
+                IFNULL(activity_week_online.total_activities, 0) + 1
             ),
             avg_max_cadence = GREATEST(
-                IFNULL(activity_day_online.avg_max_cadence, 0),
+                IFNULL(activity_week_online.avg_max_cadence, 0),
                 VALUES
                     (avg_max_cadence)
             ),
             cycle_avg_watt = (
-                IFNULL(activity_day_online.cycle_avg_watt, 0) * IFNULL(activity_day_online.total_activities, 0) +
+                IFNULL(activity_week_online.cycle_avg_watt, 0) * IFNULL(activity_week_online.total_activities, 0) +
                 VALUES
                     (cycle_avg_watt)
             ) / (
-                IFNULL(activity_day_online.total_activities, 0) + 1
+                IFNULL(activity_week_online.total_activities, 0) + 1
             ),
             avg_cycle_max_watt = GREATEST(
-                IFNULL(activity_day_online.avg_cycle_max_watt, 0),
+                IFNULL(activity_week_online.avg_cycle_max_watt, 0),
                 VALUES
                     (avg_cycle_max_watt)
             ),
             avg_climb_incline_ratio = (
-                IFNULL(activity_day_online.avg_climb_incline_ratio, 0) * IFNULL(activity_day_online.total_activities, 0) +
+                IFNULL(activity_week_online.avg_climb_incline_ratio, 0) * IFNULL(activity_week_online.total_activities, 0) +
                 VALUES
                     (avg_climb_incline_ratio)
             ) / (
-                IFNULL(activity_day_online.total_activities, 0) + 1
+                IFNULL(activity_week_online.total_activities, 0) + 1
             ),
             avg_swolf = (
-                IFNULL(activity_day_online.avg_swolf, 0) * IFNULL(activity_day_online.total_activities, 0) +
+                IFNULL(activity_week_online.avg_swolf, 0) * IFNULL(activity_week_online.total_activities, 0) +
                 VALUES
                     (avg_swolf)
             ) / (
-                IFNULL(activity_day_online.total_activities, 0) + 1
+                IFNULL(activity_week_online.total_activities, 0) + 1
             ),
             rowing_avg_watt = (
-                IFNULL(activity_day_online.rowing_avg_watt, 0) * IFNULL(activity_day_online.total_activities, 0) +
+                IFNULL(activity_week_online.rowing_avg_watt, 0) * IFNULL(activity_week_online.total_activities, 0) +
                 VALUES
                     (rowing_avg_watt)
             ) / (
-                IFNULL(activity_day_online.total_activities, 0) + 1
+                IFNULL(activity_week_online.total_activities, 0) + 1
             ),
             avg_estimate_ftp = (
-                IFNULL(activity_day_online.avg_estimate_ftp, 0) * IFNULL(activity_day_online.total_activities, 0) +
+                IFNULL(activity_week_online.avg_estimate_ftp, 0) * IFNULL(activity_week_online.total_activities, 0) +
                 VALUES
                     (avg_estimate_ftp)
             ) / (
-                IFNULL(activity_day_online.total_activities, 0) + 1
+                IFNULL(activity_week_online.total_activities, 0) + 1
             ),
             avg_swing_speed = (
-                IFNULL(activity_day_online.avg_swing_speed, 0) * IFNULL(activity_day_online.total_activities, 0) +
+                IFNULL(activity_week_online.avg_swing_speed, 0) * IFNULL(activity_week_online.total_activities, 0) +
                 VALUES
                     (avg_swing_speed)
             ) / (
-                IFNULL(activity_day_online.total_activities, 0) + 1
+                IFNULL(activity_week_online.total_activities, 0) + 1
             ),
             year_num =
         VALUES
@@ -402,70 +400,70 @@ WHERE
         VALUES
             (best_swolf),
             rowing_max_watt = GREATEST(
-                IFNULL(activity_day_online.rowing_max_watt, 0),
+                IFNULL(activity_week_online.rowing_max_watt, 0),
                 VALUES
                     (rowing_max_watt)
             ),
             max_g_force_x = GREATEST(
-                IFNULL(activity_day_online.max_g_force_x, 0),
+                IFNULL(activity_week_online.max_g_force_x, 0),
                 VALUES
                     (max_g_force_x)
             ),
             max_g_force_y = GREATEST(
-                IFNULL(activity_day_online.max_g_force_y, 0),
+                IFNULL(activity_week_online.max_g_force_y, 0),
                 VALUES
                     (max_g_force_y)
             ),
             max_g_force_z = GREATEST(
-                IFNULL(activity_day_online.max_g_force_z, 0),
+                IFNULL(activity_week_online.max_g_force_z, 0),
                 VALUES
                     (max_g_force_z)
             ),
             max_heart_rate_bpm = GREATEST(
-                IFNULL(activity_day_online.max_heart_rate_bpm, 0),
+                IFNULL(activity_week_online.max_heart_rate_bpm, 0),
                 VALUES
                     (max_heart_rate_bpm)
             ),
             max_speed = GREATEST(
-                IFNULL(activity_day_online.max_speed, 0),
+                IFNULL(activity_week_online.max_speed, 0),
                 VALUES
                     (max_speed)
             ),
             max_cadence = GREATEST(
-                IFNULL(activity_day_online.max_cadence, 0),
+                IFNULL(activity_week_online.max_cadence, 0),
                 VALUES
                     (max_cadence)
             ),
             cycle_max_watt = GREATEST(
-                IFNULL(activity_day_online.cycle_max_watt, 0),
+                IFNULL(activity_week_online.cycle_max_watt, 0),
                 VALUES
                     (cycle_max_watt)
             ),
             max_swing_speed = GREATEST(
-                IFNULL(activity_day_online.max_swing_speed, 0),
+                IFNULL(activity_week_online.max_swing_speed, 0),
                 VALUES
                     (max_swing_speed)
             ),
             min_100m_incline_ratio = LEAST(
                 IFNULL(
-                    activity_day_online.min_100m_incline_ratio,
+                    activity_week_online.min_100m_incline_ratio,
                     999999
                 ),
                 VALUES
                     (min_100m_incline_ratio)
             ),
             mini_g_force_x = LEAST(
-                IFNULL(activity_day_online.mini_g_force_x, 999999),
+                IFNULL(activity_week_online.mini_g_force_x, 999999),
                 VALUES
                     (mini_g_force_x)
             ),
             mini_g_force_y = LEAST(
-                IFNULL(activity_day_online.mini_g_force_y, 999999),
+                IFNULL(activity_week_online.mini_g_force_y, 999999),
                 VALUES
                     (mini_g_force_y)
             ),
             mini_g_force_z = LEAST(
-                IFNULL(activity_day_online.mini_g_force_z, 999999),
+                IFNULL(activity_week_online.mini_g_force_z, 999999),
                 VALUES
                     (mini_g_force_z)
             ),
