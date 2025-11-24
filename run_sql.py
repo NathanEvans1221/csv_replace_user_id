@@ -3,6 +3,7 @@ import sys
 import glob
 import re
 from pathlib import Path
+from datetime import datetime
 
 """使用環境變數 (Environment Variables) 連線至 MySQL 並顯示 MySQL 版本。
 
@@ -90,6 +91,10 @@ try:
 
                 # 替換代碼 (Token) ##USER_ID##
                 sql_text = raw_sql.replace("##USER_ID##", user_id)
+                # 算出今年的年份
+                
+                current_year = datetime.now().year
+                sql_text = sql_text.replace("##YEAR##", str(current_year))
 
                 # 以分號 (Semicolon) 分割語句 (Statements)。這是一個簡單的方法，
                 # 對於字串常值 (String Literals) 中包含分號的情況可能會失敗，但對一般 SQL 檔案已足夠。

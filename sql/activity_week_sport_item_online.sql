@@ -176,5 +176,5 @@ FROM
 WHERE
     aw.user_id IN (
         ##USER_ID##)
-        AND aw.year_num = 2025
+        AND aw.year_num= ##YEAR##
         AND aw.week_num >= 44;

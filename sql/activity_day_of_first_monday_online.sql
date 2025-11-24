@@ -178,7 +178,7 @@ FROM
 WHERE
     old.user_id IN (
         ##USER_ID##)
-        AND old.year_num = 2025 
+        AND old.year_num = ##YEAR## 
         AND old.start_time >= '2025-11-14T00:00:00.000+08:00'
         ON DUPLICATE KEY
         UPDATE
